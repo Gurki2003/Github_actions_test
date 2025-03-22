@@ -1,14 +1,10 @@
-name: Learning
+name: Test Workflow
 
 on: [push]
 
-env:
-  ARTIFACT_NAME: myartifact
-
 jobs:
-  job1:
-    name: Challenge
-    runs-on: ubuntu-22.04  # Changed from ubuntu-latest to ubuntu-22.04
+  test:
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -16,5 +12,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
         with:
-          name: ${{ env.ARTIFACT_NAME }}
+          name: test-artifact
           path: .
