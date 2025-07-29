@@ -11,7 +11,7 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 # --- Configuration ---
 url = "https://www.lenovo.com/in/en/p/accessories-and-software/monitors/gaming/67b4gac1in"
-PRICE_THRESHOLD = 20000  # Target price threshold in INR
+PRICE_THRESHOLD = 24000  # Target price threshold in INR
 
 # Email configuration from GitHub Actions secrets
 SMTP_SERVER = "smtp.gmail.com"
