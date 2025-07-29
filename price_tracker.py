@@ -16,9 +16,9 @@ PRICE_THRESHOLD = 24000  # Target price threshold in INR
 # Email configuration from GitHub Actions secrets
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
-SMTP_USER = os.getenv("SMTP_USER")
-SMTP_PASS = os.getenv("SMTP_PASS")
-ALERT_TO = os.getenv("ALERT_TO")
+SMTP_USER = "workdummy12345@gmail.com"
+SMTP_PASS = "sucf smwf snax houw"
+ALERT_TO = "gurkirat1228@gmail.com"
 
 # --- Functions ---
 
