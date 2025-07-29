@@ -27,7 +27,7 @@ def get_price():
     options.add_argument('--headless')  # Important for GitHub Actions
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-
+    print("📏 SMTP_PASS length:", len(SMTP_PASS))
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     driver.get(url)
 
