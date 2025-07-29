@@ -11,13 +11,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 # --- Configuration ---
 url = "https://www.lenovo.com/in/en/p/accessories-and-software/monitors/gaming/67b4gac1in"
-PRICE_THRESHOLD = 20000  # Target price threshold in INR
+PRICE_THRESHOLD = 24000  # Target price threshold in INR
 
 # Email configuration from GitHub Actions secrets
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 SMTP_USER = "workdummy12345@gmail.com"
-SMTP_PASS = "sucf smwf snax houw"
+SMTP_PASS = os.getenv("SMTP_PASS")
 ALERT_TO = "gurkirat1228@gmail.com"
 
 # --- Functions ---
