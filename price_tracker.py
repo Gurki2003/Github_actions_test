@@ -11,13 +11,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 
 # --- Configuration ---
 url = "https://www.lenovo.com/in/en/p/accessories-and-software/monitors/gaming/67b4gac1in"
-PRICE_THRESHOLD = 24000  # Target price threshold in INR
+PRICE_THRESHOLD = 20000  # Target price threshold in INR
 
 # Email configuration from GitHub Actions secrets
 SMTP_SERVER = "smtp.gmail.com"
 SMTP_PORT = 587
 SMTP_USER = "workdummy12345@gmail.com"
-SMTP_PASS = os.getenv("SMTP_PASS")
+SMTP_PASS = "sucf smwf snax houw"
 ALERT_TO = "gurkirat1228@gmail.com"
 
 # --- Functions ---
@@ -27,7 +27,6 @@ def get_price():
     options.add_argument('--headless')  # Important for GitHub Actions
     options.add_argument('--no-sandbox')
     options.add_argument('--disable-dev-shm-usage')
-    print("📏 SMTP_PASS :",(SMTP_PASS))
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     driver.get(url)
 
