@@ -10,7 +10,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 # --- Configuration ---
-url = "https://amzn.in/d/g9RBsub"
+url = "https://www.amazon.in/dp/B0B5HB3F85?ref=cm_sw_r_cp_ud_dp_03WBDFYZ5RZ35EYK6RTG&ref_=cm_sw_r_cp_ud_dp_03WBDFYZ5RZ35EYK6RTG&social_share=cm_sw_r_cp_ud_dp_03WBDFYZ5RZ35EYK6RTG"
 PRICE_THRESHOLD = 4000  # Target price threshold in INR
 
 # Email configuration from GitHub Actions secrets
