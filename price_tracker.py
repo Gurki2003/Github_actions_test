@@ -24,13 +24,15 @@ ALERT_TO = "gurkirat1228@gmail.com"
 
 def get_price():
     options = Options()
-    options.add_argument('--headless')  # Important for GitHub Actions
-    options.add_argument('--no-sandbox')
-    options.add_argument('--disable-dev-shm-usage')
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--window-size=1920,1200")
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()), options=options)
     driver.get(url)
 
-    time.sleep(5)  # Allow JavaScript to load
+    time.sleep(10)  # Allow JavaScript to load
 
     soup = BeautifulSoup(driver.page_source, "html.parser")
     driver.quit()
