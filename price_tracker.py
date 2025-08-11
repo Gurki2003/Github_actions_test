@@ -10,8 +10,8 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 # --- Configuration ---
-url = "https://www.lenovo.com/in/en/p/accessories-and-software/monitors/gaming/67b4gac1in"
-PRICE_THRESHOLD = 20000  # Target price threshold in INR
+url = "https://amzn.in/d/g9RBsub"
+PRICE_THRESHOLD = 4000  # Target price threshold in INR
 
 # Email configuration from GitHub Actions secrets
 SMTP_SERVER = "smtp.gmail.com"
@@ -36,8 +36,8 @@ def get_price():
     driver.quit()
 
     try:
-        cost_class = soup.find('div', class_="price-summary-info style-auto-gaming price-summary-info-pc")
-        price = cost_class.find('span', class_='price-title').text.strip()
+        cost_class = soup.find('div', class_="a-section a-spacing-none aok-align-center aok-relative")
+        price = cost_class.find('span', class_='a-price-whole').text.strip()
         cleaned_amount = price.replace("₹", "").replace(",", "")
         amount_int = int(cleaned_amount)
         return amount_int
@@ -45,7 +45,7 @@ def get_price():
         raise ValueError(f"⚠️ Failed to parse price from the page: {e}")
 
 def send_email_alert(current_price):
-    subject = "💰 Lenovo Price Drop Alert!"
+    subject = "💰 Price Drop Alert!"
     body = f"The price dropped to ₹{current_price}!\n\nCheck it here: {url}"
     msg = MIMEText(body)
     msg["Subject"] = subject
