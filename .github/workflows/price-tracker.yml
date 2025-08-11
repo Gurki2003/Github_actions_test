@@ -1,4 +1,4 @@
-name: Lenovo Price Tracker
+name: Price Tracker
 
 on:
   schedule:
