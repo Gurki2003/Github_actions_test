@@ -2,7 +2,7 @@ name: Price Tracker
 
 on:
   schedule:
-    - cron: '0 9,18 * * *'  # Twice a day
+    - cron: '0 */3 * * *'  # Twice a day
   workflow_dispatch:
 
 jobs:
