@@ -1,18 +1,16 @@
-import os
+import re
 import smtplib
 import time
-from email.mime.text import MIMEText
-import re
-
 from bs4 import BeautifulSoup
 from selenium import webdriver
+from email.mime.text import MIMEText
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 
 # --- Configuration ---
-url = "https://www.myntra.com/watches/casio/casio-edifice-efr-s108de-2avudf-blue-analog-dial-stainless-steel-band-ed677/37617410/buy"
-PRICE_THRESHOLD = 100000  # Target price threshold in INR
+url = "https://neomacro.in/products/vgn-vxe-r1-series?variant=51089222598934"
+
 
 # Email configuration from GitHub Actions secrets
 SMTP_SERVER = "smtp.gmail.com"
@@ -23,7 +21,7 @@ ALERT_TO = "gurkirat1228@gmail.com"
 
 # --- Functions ---
 
-def get_price():
+def get_stock_status():
     options = Options()
     options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
@@ -46,27 +44,18 @@ def get_price():
 
     soup = BeautifulSoup(driver.page_source, "html.parser")
     driver.quit()
-
-    try:
-        import re
-        price_span = soup.find("span", class_="pdp-discounted-price")
-        if not price_span:
-            price_span = soup.find("span", class_="pdp-price")
-        if not price_span:
-            raise ValueError("Price element not found")
-        price_text = price_span.get_text(strip=True)
-        numbers = re.findall(r"\d+", price_text)
-        if not numbers:
-            raise ValueError(f"No numeric price found in text: {price_text}")
-        amount_int = int("".join(numbers))
-        return amount_int
-    except Exception as e:
-        raise ValueError(f"⚠️ Failed to parse price from Myntra page: {e}")
+    a_soup = soup.find('div', class_='product-form__buttons')
+    b_soup = a_soup.find('button', class_='product-form__submit')
+    soldOut_or_not = b_soup.get_text(strip=True)
+    if soldOut_or_not == "Sold out":
+        return 0
+    else:
+        return 1     
 
 
-def send_email_alert(current_price):
-    subject = "💰 Price Drop Alert!"
-    body = f"The price dropped to ₹{current_price}!\n\nCheck it here: {url}"
+def send_email_alert():
+    subject = "VXE R1 PRO in back in stock!"
+    body = f"\n\nCheck it here: {url}"
     msg = MIMEText(body)
     msg["Subject"] = subject
     msg["From"] = SMTP_USER
@@ -86,14 +75,13 @@ def main():
         raise ValueError("❌ Missing SMTP credentials or recipient email. Set them as GitHub Secrets.")
 
     try:
-        current_price = get_price()
-        print(f"📦 Current price: ₹{current_price}")
+        current_stock = get_stock_status()
+        print(f"📦 Current stock status: {current_stock}")
 
-        if current_price <= PRICE_THRESHOLD:
-            print("💡 Price is below threshold! Sending email...")
-            send_email_alert(current_price)
+        if current_stock <= 0:
+            print("ℹ️ Product is not in stock. No need to send alert.")
         else:
-            print("ℹ️ Price is above threshold. No alert sent.")
+            send_email_alert()
 
     except Exception as e:
         print(f"❌ Error occurred: {e}")
